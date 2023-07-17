@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Página de Turnos</title>
+</head>
+<body>
+  <h1>Seleccione el tipo de turno:</h1>
+
+  <button id="btnGeneral" onclick="solicitarTurno('general')">Turno General</button>
+  <button id="btnPrioritario" onclick="solicitarTurno('prioritario')">Turno Prioritario</button>
+
+  <script>
+    function solicitarTurno(tipo) {
+      var xhr = new XMLHttpRequest();
+      var url = "/guardar_turno";
+      var data = new FormData();
+      data.append("tipo", tipo);
+      xhr.open("POST", url, true);
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          alert("Turno: " + xhr.responseText);
+        } else {
+          alert("Error al guardar el turno");
+        }
+      };
+      xhr.onerror = function() {
+        alert("Error de conexión");
+      };
+      xhr.send(data);
+    }
+  </script>
+</body>
+</html>
